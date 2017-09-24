@@ -1,31 +1,47 @@
-![Logo](admin/fritzdect_logo.png)
-# ioBroker.fritzdect
+![Logo](admin/fritzaha_logo.png)
+# ioBroker.fritzaha
+## Fritzbox DECT (AHA) adapter for ioBroker
+### Motivation:
+Case Study switching from current - python based - own ioBroker like smarthome engine running on raspbian to ioBroker running on raspbian. 
+Current used scanrios
+* the heating system via DECT300 (Comet)
+* monitoring Servers and Clients with addional usage of different local scripts (like bash, batch, powershell and tasker) and alerting
+* monitor drainage pump and alerting
+* montor and inform on cloth washer
 
-[![NPM version](http://img.shields.io/npm/v/iobroker.fritzdect.svg)](https://www.npmjs.com/package/iobroker.fritzdect)
-[![Downloads](https://img.shields.io/npm/dm/iobroker.fritzdect.svg)](https://www.npmjs.com/package/iobroker.fritzdect)
-[![Build Status](https://travis-ci.org/foxthefox/ioBroker.fritzdect.svg?branch=master)](https://travis-ci.org/foxthefox/ioBroker.fritzdect)
 
-[![NPM](https://nodei.co/npm/iobroker.fritzdect.png?downloads=true)](https://nodei.co/npm/iobroker.fritzdect/)
 
-Fritzbox DECT adapter for ioBroker
+### Goals:
+* learn on GIT deploys and packaging for ioBroker
+
+Forked from [foxthefox/ioBroker.fritzdect]: https://github.com/foxthefox/ioBroker.fritzdect
+Additional to the existing functionallity the support of
+* (unsafe) HTTPS support
+* separation of authorization (diffrent user accounts smarthome, admin etc.)
+* focus on AHA (backwards compatibility for non AHA / raw admin page parses )
+* separation of polling intervals for different IFs
+* adaption of lock settings (ui lock and/or api lock)
+* adaption of build in battery low alert (free win - batteries don't die in some minutes ;-))
+* retry mechanism for reported failed connects
+
+
+[![Build Status](https://travis-ci.org/DDDanny/ioBroker.fritzaha.svg?branch=master)](https://travis-ci.org/DDDanny/ioBroker.fritzaha)
 
 ## Installation:
-released version on npm with
+actual version from github with 
 ```javascript
- npm install iobroker.fritzdect
-```
-
-
-or the actual version from github with 
-```javascript
-npm install https://github.com/foxthefox/ioBroker.fritzdect/tarball/master --production
+npm install https://github.com/DDDanny/ioBroker.fritzaha/tarball/master --production
 ```
 ## Setup
 
-IP-address and password of Fritzbox should be defined in io-package.json or via admin page, before the first start of the instance.
+Should be defined in io-package.json or via admin page, before the first start of the instance:
+* MUST: Protocoll (bestpratice HTTPS)
+* MUST: IP-address (bestpratice fritz.box)
+* MUST: Smarthome authorized user and password of Fritzbox for accessing AHA IF (bestpractice separate user and polling @ 120s.
+* Optional: setting up admin user for accessing GUEST WLAN IF and Battery Level
+* Optional: setting the polling intervals of GUEST WLAN IF and Battery Level 
 
 The devices are detected automatically during startup of fritzdect instance.
-
 the widget requires that also vis-metro and vis-jqui-mfd are installed
 
 ## objects
@@ -49,21 +65,28 @@ the widget requires that also vis-metro and vis-jqui-mfd are installed
 
 
 ## Known Issues:
-Sometimes the setting of a command for switch or targetTemp does not work. Seems a combination of certain FW and fritzBox model.
+* (unsafe) HTTPS support
+* separation of authorization (diffrent user accounts smarthome, admin etc.)
+* focus on AHA (backwards compatibility for non AHA / raw admin page parses )
+* separation of polling intervals for different IFs
+* adaption of lock settings (ui lock and/or api lock)
+* adaption of build in battery low alert (free win - batteries don't die in some minutes ;-))
+* retry mechanism for reported failed connects
 
 ## TODO:
-* getOSversion
 
 ## Changelog
+### 0.0.10
+* forked and branded
 
 ### 0.0.9
 * values '1' accepted for ON
-* values '0' accepted for ON
+* values '0' accepted for OF
 
 ### 0.0.8
 * messages info-> debug
 * values 1/true/on/ON accepted for ON
-* values 0/false/off/OFF accepted for ON
+* values 0/false/off/OFF accepted for OFF
 
 ### 0.0.7
 * current temp of Comet/DECT300

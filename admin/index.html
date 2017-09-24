@@ -12,79 +12,105 @@
 
 <!-- you have to define 2 functions in the global scope: -->
 <script type="text/javascript">
-    // Dictionary (systemDictionary is global variable from adapter-settings.js)
-    systemDictionary = {
-        "fritzdect adapter settings": {"de": "fritzdect Adapter Einstellung", "en": "fritzdect adapter setup", "ru": "Настройки fritzdect Драйвера"},
+	// Dictionary (systemDictionary is global variable from adapter-settings.js)
+	systemDictionary = {
+		"title": {"de": "fritzbox DECT (AHA) Adapter Einstellungen", "en": "Fritzbox DECT (AHA) adapter settings"},
 
-        "on save adapter restarts with new config immediately": {            "de": "Beim Speichern von Einstellungen der Adapter wird sofort neu gestartet.",
-								 	"ru": "Сразу после сохранения настроек драйвер перезапуститься с новыми значениями"
-        }
-    };
-    // the function loadSettings has to exist ...
-    function load(settings, onChange) {
-        // example: select elements with id=key and class=value and insert value        
+		"save": {"de": "Nach dem Speichern der Einstellungen wird der Adapter neu gestartet.", "en" : "Save will trigger an adapter restart immediatly.",
+		}
+	};
+	// the function loadSettings has to exist ...
+	function load(settings, onChange) {
+		// example: select elements with id=key and class=value and insert value		
 	  for (var key in settings) {
-            // example: select elements with id=key and class=value and insert value
-            if ($('#' + key + '.value').attr('type') == 'checkbox') {
-                $('#' + key + '.value').prop('checked', settings[key]).change(function () {
+			// example: select elements with id=key and class=value and insert value
+			if ($('#' + key + '.value').attr('type') == 'checkbox') {
+				$('#' + key + '.value').prop('checked', settings[key]).change(function () {
 					onChange();
 				});
-            } else {
-                $('#' + key + '.value').val(settings[key]).change(function () {
+			} else {
+				$('#' + key + '.value').val(settings[key]).change(function () {
 					onChange();
 				}).keyup(function () {
 					$(this).trigger('change');
 				});
-            }
-        }
-        // Signal to admin, that no changes yet
-        onChange(false);
-    }
-    // ... and the function save has to exist.
-    // you have to make sure the callback is called with the settings object as first param!
-    function save(callback) {
-        // example: select elements with class=value and build settings object
-        var obj = {};
-        $('.value').each(function () {
-            var $this = $(this);
-            obj[$this.attr('id')] = $this.val();
-        });
-        callback(obj);
-    }
+			}
+		}
+		// Signal to admin, that no changes yet
+		onChange(false);
+	}
+	// ... and the function save has to exist.
+	// you have to make sure the callback is called with the settings object as first param!
+	function save(callback) {
+		// example: select elements with class=value and build settings object
+		var obj = {};
+		$('.value').each(function () {
+			var $this = $(this);
+			obj[$this.attr('id')] = $this.val();
+		});
+		callback(obj);
+	}
 </script>
 
 <!-- you have to put your config page in a div with id adapter-container -->
 <div id="adapter-container">
 
-    <table><tr>
-        <td><img src="fritzdect_logo.png"/></td>
-        <td><h3 class="translate">Fritzbox DECT adapter settings</h3></td>
-    </tr></table>
-    
-    <table>
-        <tr>
-            <td class="translate">Fritzbox IP</td>
-            <td><input type="text" id="fritz_ip" class="value"/></td>
-        </tr>
-	<tr>
-            <td class="translate">Fritzbox User</td>
-            <td><input type="text" id="fritz_user" class="value"/></td>
-        </tr>
-        <tr>
-            <td class="translate">Fritzbox Password</td>
-            <td><input type="text" id="fritz_pw" class="value"/></td>
-        </tr>
-        <tr>
-            <td class="translate">Fritzbox Polling Interval</td>
-            <td><input type="text" id="fritz_interval" class="value"/></td>
-        </tr>    
-     </table>
+	<table><tr>
+		<td><img src="fritzaha_logo.png" alt="original source: https://pixabay.com/en/arrows-directions-red-router-152125/"/></td>
+		<td><h3 class="translate">title</h3></td>
+	</tr></table>
 	
-
-    
-
-    <p class="translate">on save adapter restarts with new config immediately</p>
-
+	<table>
+		<tr>
+			<td class="translate">Protocoll</td>
+				<select id="fritz_proto" size="2" class="value">
+					<option selected value="https">HTTPS</option>
+					<option value="http">HTTP</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td class="translate">Allow self signed SSL Certificate</td>
+			<td><input type="checkbox" id="fritz_no_strict_ssl" value="false" checked></td>
+		</tr>
+		<tr>
+			<td class="translate">IP</td>
+			<td><input type="password" id="fritz_ip" class="value"/></td>
+		</tr>
+	</table>
+	<table>
+		<tr>
+			<td class="translate">Smarthome User</td>
+			<td><input type="text" id="fritz_aha_user" class="value"/></td>
+		</tr>
+		<tr>
+			<td class="translate">Smarthome Password</td>
+			<td><input type="text" id="fritz_pw" class="value"/></td>
+		</tr>
+		<tr>
+			<td class="translate">Smarthome Polling Interval (sec)</td>
+			<td><input type="text" id="fritz_interval" class="value"/></td>
+		</tr>	
+	 </table>
+	<table>
+		<tr>
+			<td class="translate">Admin User</td>
+			<td><input type="text" id="fritz_adm" class="value"/></td>
+		</tr>
+		<tr>
+			<td class="translate">Admin  Password</td>
+			<td><input type="text" id="fritz_adm_pw" class="value"/></td>
+		</tr>
+		<tr>
+			<td class="translate">WLAN: Polling Interval (sec) [0 <= off]</td>
+			<td><input type="text" id="fritz_wlan_interval" class="value"/></td>
+		</tr>	
+		<tr>
+			<td class="translate">Battery Details: Polling Interval (sec) [0 <= off]</td>
+			<td><input type="text" id="fritz_battery_interval" class="value"/></td>
+		</tr>	
+	 </table>
+	 <p class="translate">save</p>
 </div>
 
 </html>
