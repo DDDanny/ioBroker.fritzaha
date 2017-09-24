@@ -50,18 +50,18 @@
 		"restartAdapters":	["vis"]
 	},
 	  "native": {
-		"fritz_proto":  "https",
-		"fritz_allow_unsecure_https":  "true",
-		"fritz_ip":  "fritz.box",
+		"protocol":		"https",
+		"allow_unsecure_https":	"true",
+		"ip":			"fritz.box",
 
-		"fritz_aha_user": "smarthome",
-		"fritz_aha_pw": "password",
-		"fritz_aha_interval": "120",
+		"aha_user":		"smarthome",
+		"aha_pw":		"password",
+		"aha_interval":		"120",
 
-		"fritz_adm_user": "admin",
-		"fritz_adm_pw": "password",
-		"fritz_wlan_interval": "0",
-		"fritz_battery_interval": "0"
+		"adm_user":		"admin",
+		"adm_pw":		"password",
+		"wlan_interval":	"0",
+		"battery_interval":	"0"
 	},
 	"objects": [
 

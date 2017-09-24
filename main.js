@@ -13,7 +13,7 @@ var utils =	require(__dirname + '/lib/utils'); // Get common adapter utils
 
 var fritzTimeout;
 
-var adapter = utils.adapter('fritzdect');
+var adapter = utils.adapter('fritzaha');
 
 // is called when adapter shuts down - callback has to be called under any circumstances!
 adapter.on('unload', function (callback) {
@@ -36,16 +36,16 @@ adapter.on('objectChange', function (id, obj) {
 adapter.on('stateChange', function (id, state) {
 	// Warning, state can be null if it was deleted
 	adapter.log.debug('stateChange ' + id + ' ' + JSON.stringify(state));
-	var aha_username = adapter.config.fritz_aha_user;
-	var aha_password = adapter.config.fritz_aha_pw;
-	var moreParam = { url: adapter.config.fritz_proto + "://" + adapter.config.fritz_ip, strictSSL: !fritz_no_strict_ssl };
+	var aha_username = adapter.config.aha_user;
+	var aha_password = adapter.config.aha_pw;
+	var moreParam = { url: adapter.config.proto + "://" + adapter.config.ip, strictSSL: !no_strict_ssl };
 	
 	// you can use the ack flag to detect if it is status (true) or command (false)
 	if (state && !state.ack) {
 		adapter.log.debug('ack is not set! -> command');
 		var tmp = id.split('.');
 		var dp = tmp.pop(); //should always be "state"
-		var idx = tmp.pop(); //is the name after fritzdect.x.
+		var idx = tmp.pop(); //is the name after fritzaha.x.
 		if (idx.startsWith("Comet_")){ //must be comet
 			id = idx.replace(/Comet_/g,''); //Thermostat
 			adapter.log.info('Comet ID: '+ id + ' identified for command : ' + state.val);
@@ -112,9 +112,9 @@ process.on('SIGINT', function () {
 
 function main() {
 	
-	var aha_username = adapter.config.fritz_user;
-	var aha_password = adapter.config.fritz_pw;
-	var moreParam = { url: adapter.config.fritz_proto + "://" + adapter.config.fritz_ip, strictSSL: !fritz_no_strict_ssl };
+	var aha_username = adapter.config.aha_user;
+	var aha_password = adapter.config.aha_pw;
+	var moreParam = { url: adapter.config.protocol + "://" + adapter.config.ip, strictSSL: !adapter.config.no_strict_ssl };
 
 	function insertDECT200(id){
 		var switches = id;
@@ -383,7 +383,7 @@ function main() {
 		});
 	}
 	
-	function insertDectObj(){
+	function insertSwitchObj(){
 		fritz.getSessionID(aha_username, aha_password, moreParam).then(function(sid){
 			adapter.log.debug('SID for switchlist : '+sid);
 			fritz.getSwitchList(sid,moreParam).then(function(switches){
@@ -423,7 +423,7 @@ function main() {
 		});
 	}
 	
-	function updateFritzDect(){
+	function updateFritzSwitch(){
 		fritz.getSessionID(aha_username, aha_password, moreParam).then(function(sid){
 			adapter.log.debug('SID for switch status  : '+ sid);
 			fritz.getSwitchList(sid,moreParam).then(function(switches){
@@ -459,14 +459,14 @@ function main() {
 		});
 	}
 	function pollFritzData() {
-		var fritz_interval = parseInt(adapter.config.fritz_interval,10) || 300;
-		updateFritzDect();
+		var aha_interval = parseInt(adapter.config.aha_interval,10) || 300;
+		updateFritzSwitch();
 		updateFritzComet();
 		updateFritzGuest();
 		adapter.log.debug("polling! fritzdect is alive");
-		fritzTimeout = setTimeout(pollFritzData, fritz_interval*1000);
+		fritzTimeout = setTimeout(pollFritzData, aha_interval*1000);
 	}
-	insertDectObj();
+	insertSwitchObj();
 	insertCometObj();
 	pollFritzData();
 
