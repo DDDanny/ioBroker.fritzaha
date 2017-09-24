@@ -3,8 +3,13 @@ os:
   - osx
 language: node_js
 node_js:
+<!-- non compatible with fritzapi
+SyntaxError: Use of const in strict mode.
+[..] /node_modules/fritzapi/node_modules/request/request.js:9:12)
   - '0.10'
   - '0.12'
+->
+
   - '4'
   - '6'
   - '8'
