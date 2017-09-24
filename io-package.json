@@ -1,54 +1,53 @@
 {
 	"common": {
-		"name":				 "fritzaha",
-		"version":			  "0.0.10",
-	"news": {
-	  "0.0.10": {
+		"name":			"fritzaha",
+		"version":		"0.0.10",
+		"news": {
+			"0.0.10": {
 				"en": 	"forked and branded",
-				"de": 	"eigene Entwicklung und Anpassung",
-		},
-	  "0.0.9": {
-				"en": 	"values '0'/'1' for OFF/ON",
-				"de": 	"Werte '0'/'1' für AUS/EIN",
-		},
-	  "0.0.8": {
-				"en": 	"multiple values for OFF/ON",
-				"de": 	"verschiedene vaules für AUS/EIN",
-		},
-	   "0.0.7": {
-				"en": 	"COMET act temp, polling GeustWLAN",
-				"de": 	"COMET Isttemp., zykl. Abfrage GästeWLAN",
+				"de": 	"eigene Entwicklung und Anpassung"
 			},
-	   "0.0.6": {
-				"en": 	"correction state/targettemp",
-				"de": 	"correction state/targettemp",
+			"0.0.9": {
+				"en":	"values '0'/'1' for OFF/ON",
+				"de":	"Werte '0'/'1' für AUS/EIN"
 			},
-	   "0.0.5": {
-				"en": 	"Comet set temp",
-				"de": 	"Comet Temperatur vorgeben",
+			"0.0.8": {
+				"en":	"multiple values for OFF/ON",
+				"de":	"verschiedene vaules für AUS/EIN"
 			},
-	   "0.0.4": {
-				"en": 	"update cyclic polling",
-				"de": 	"zyklische Abfrage",
+		   "0.0.7": {
+				"en":	"COMET act temp, polling GeustWLAN",
+				"de":	"COMET Isttemp., zykl. Abfrage GästeWLAN"
+				},
+		   "0.0.6": {
+				"en":	"correction state/targettemp",
+				"de":	"correction state/targettemp"
+				},
+		   "0.0.5": {
+				"en":	"Comet set temp",
+				"de":	"Comet Temperatur vorgeben"
+				},
+		   "0.0.4": {
+				"en":	"update cyclic polling",
+				"de":	"zyklische Abfrage"
 			},  
 			"0.0.3": {
 				"en": 	"Inital version at npm",
-				"de": 	"Erste Version in npm",
+				"de": 	"Erste Version in npm"
 			}
 		},   
 		"title":		"fritz.box DECT (AHA) adapter",
 		"desc":			"ioBroker fritz.box DECT (AHA) adapter",
 		"platform":		"Javascript/Node.js",
 		"mode":			"daemon",
-		"license": 	   	"MIT",
+		"license":		"MIT",
 		"keywords":		["smart home", "DECT200", "DECT300", "COMET", "fritzbox"],
 		"type":			"hardware",
 		"icon":			"fritzaha_logo.png",
-	"extIcon":		  	"https://raw.githubusercontent.com/DDDanny/ioBroker.fritzaha/master/admin/fritzaha_logo.png",
-	"readme":		   	"https://github.com/DDDanny/ioBroker.fritzaha/blob/master/README.md",
-	"loglevel":			"info",
-	"restartAdapters":		["vis"],
-
+		"extIcon":		"https://raw.githubusercontent.com/DDDanny/ioBroker.fritzaha/master/admin/fritzaha_logo.png",
+		"readme":		"https://github.com/DDDanny/ioBroker.fritzaha/blob/master/README.md",
+		"loglevel":		"info",
+		"restartAdapters":	["vis"]
 	},
 	  "native": {
 		"fritz_proto":  "https",
@@ -62,7 +61,7 @@
 		"fritz_adm_user": "admin",
 		"fritz_adm_pw": "password",
 		"fritz_wlan_interval": "0",
-		"fritz_battery_interval": "0",
+		"fritz_battery_interval": "0"
 	},
 	"objects": [
 
@@ -73,7 +72,7 @@
 			"type": "channel",
 			"common": {
 				"name":  "GuestWLAN",
-				"role":  "switch",
+				"role":  "switch"
 			},
 			"native": {}
 		},
@@ -86,7 +85,7 @@
 				"role":  "switch",
 				"read":  true,
 				"write": true,
-				"desc":  "GuestWLAN  on/off",
+				"desc":  "GuestWLAN  on/off"
 			},
 			"native": {}
 		}
